@@ -1,14 +1,19 @@
 import { APIGatewayEvent, Context, Callback } from "aws-lambda";
 import ResponseJsonHelper from "../helpers/responseJsonHelper";
+import Container from "typedi";
+import TorreService from "../services/torreService";
 
+const torreService = Container.get(TorreService);
 
 const torreController = {
   
   search: (event: APIGatewayEvent, context: Context, cb: Callback) => {
     const { searchTerm } = event.pathParameters;
-    const search$ = torreService.query$(searchTerm);
+    console.log(searchTerm);
+    const search$ = torreService.search$(searchTerm);
     return search$.subscribe(
       (searchResponses) => {
+        console.log({searchResponses});
         return cb(null, ResponseJsonHelper.okResponse(searchResponses, false))
       },
       (error) => {
