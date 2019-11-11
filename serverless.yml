@@ -1,15 +1,11 @@
 service:
   name: torretechtest
-# app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
 
 custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
 
-# Add the serverless-webpack plugin
 plugins:
   - serverless-webpack
   - serverless-offline
@@ -31,6 +27,7 @@ functions:
       - http:
           method: get
           path: search/{searchTerm}
+          cors: true
 
   getProfile:
     handler: handler.queryProfile
@@ -38,6 +35,7 @@ functions:
       - http:
           method: get
           path: profile/{profile}
+          cors: true
   
   getConnections:
     handler: handler.queryConnections
@@ -45,4 +43,5 @@ functions:
       - http:
           method: get
           path: connections/{profile}
+          cors: true
 

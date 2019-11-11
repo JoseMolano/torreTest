@@ -1,13 +1,18 @@
-import {of,from} from 'rxjs';
+import {of,from, Observable} from 'rxjs';
 import {ajax} from 'rxjs/ajax';
 import {flatMap} from 'rxjs/operators';
 import { XMLHttpRequest } from 'xmlhttprequest';
 import { Service } from 'typedi';
 
+/* 
+Functions inside middleware are similar, I'll explain just the first one 
+*/
+
 @Service()
 class TorreMW {
 
   public querySearch$(searchTerm: string) {
+    // Querying API by rxjs ajax method and getting observables
     return ajax({
       createXHR: () => {
         return new XMLHttpRequest();
@@ -21,6 +26,7 @@ class TorreMW {
     })
       .pipe(
         flatMap((resp) => {
+          // Parse API results before sending them back
           return from(this.parseSearchResult(resp).toPromise().then((result) => {
             return {
               result
@@ -76,6 +82,11 @@ class TorreMW {
         })
       );
   }
+
+  /*Three methods to parse results, just to get necessary information for this test:
+    parseSearchResults,
+    parseProfileResult,
+    parseConnectionsResults */
 
   public parseSearchResult(resp) {
     const fixedResults = resp.response.map((element) => {
