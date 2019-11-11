@@ -95,7 +95,7 @@ class TorreMW {
         headLine: element.professionalHeadline,
         completion: element.completion,
         weight: element.weight,
-        image: element.image,
+        image: element.picture,
         username: element.publicId
       }
     });
