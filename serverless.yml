@@ -16,15 +16,32 @@ plugins:
 provider:
   name: aws
   runtime: nodejs10.x
+  region: us-east-1
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+  stage: ${opt:stage, 'dev'}
 
 functions:
-  hello:
-    handler: handler.hello
+  search:
+    handler: handler.search
     events:
       - http:
           method: get
-          path: hello
+          path: search/{searchTerm}
+
+  getProfile:
+    handler: handler.queryProfile
+    events:
+      - http:
+          method: get
+          path: profile/{profile}
+  
+  getConnections:
+    handler: handler.queryConnections
+    events:
+      - http:
+        method: get
+        path: connections/{profile}
+

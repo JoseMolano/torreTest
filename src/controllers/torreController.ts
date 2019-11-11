@@ -4,9 +4,9 @@ import ResponseJsonHelper from "../helpers/responseJsonHelper";
 
 const torreController = {
   
-  query: (event: APIGatewayEvent, context: Context, cb: Callback) => {
-    const query = event.pathParameters.searchTerm;
-    const search$ = torreService.query$(query);
+  search: (event: APIGatewayEvent, context: Context, cb: Callback) => {
+    const { searchTerm } = event.pathParameters;
+    const search$ = torreService.query$(searchTerm);
     return search$.subscribe(
       (searchResponses) => {
         return cb(null, ResponseJsonHelper.okResponse(searchResponses, false))
@@ -19,8 +19,8 @@ const torreController = {
   },
 
   profile: (event: APIGatewayEvent, context: Context, cb: Callback) => {
-    const username = event.pathParameters.username;
-    const profile$ = torreService.profile$(username);
+    const { profile } = event.pathParameters;
+    const profile$ = torreService.profile$(profile);
     return profile$.subscribe(
       (profileResponse) => {
         return cb(null, ResponseJsonHelper.okResponse(profileResponse, false))
@@ -33,8 +33,8 @@ const torreController = {
   },
 
   connections: (event: APIGatewayEvent, context: Context, cb: Callback) => {
-    const username = event.pathParameters.username;
-    const connections$ = torreService.connections$(username);
+    const { profile } = event.pathParameters;
+    const connections$ = torreService.connections$(profile);
     return connections$.subscribe(
       (connectionsResponses) => {
         return cb(null, ResponseJsonHelper.okResponse(connectionsResponses, false))
