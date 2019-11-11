@@ -15,3 +15,5 @@ Endpoints for lambda functions are:
 - GET https://1tzm5muki7.execute-api.us-east-1.amazonaws.com/prod/search/{searchTerm}
 - GET https://1tzm5muki7.execute-api.us-east-1.amazonaws.com/prod/profile/{profile}
 - GET https://1tzm5muki7.execute-api.us-east-1.amazonaws.com/prod/connections/{profile}
+
+For development process I used GitFlow branching model.
